@@ -80,6 +80,11 @@ class NeMoPretrainedSpeakerEmbedding(BaseInference):
         self.model_.to(self.device)
 
     def to(self, device: torch.device):
+        if not isinstance(device, torch.device):
+            raise TypeError(
+                f"`device` must be an instance of `torch.device`, got `{type(device).__name__}`"
+            )
+
         self.model_.to(device)
         self.device = device
         return self
@@ -255,6 +260,11 @@ class SpeechBrainPretrainedSpeakerEmbedding(BaseInference):
         )
 
     def to(self, device: torch.device):
+        if not isinstance(device, torch.device):
+            raise TypeError(
+                f"`device` must be an instance of `torch.device`, got `{type(device).__name__}`"
+            )
+
         self.classifier_ = SpeechBrain_EncoderClassifier.from_hparams(
             source=self.embedding,
             savedir=f"{CACHE_DIR}/speechbrain",
@@ -415,6 +425,11 @@ class PyannoteAudioPretrainedSpeakerEmbedding(BaseInference):
         self.model_.to(self.device)
 
     def to(self, device: torch.device):
+        if not isinstance(device, torch.device):
+            raise TypeError(
+                f"`device` must be an instance of `torch.device`, got `{type(device).__name__}`"
+            )
+
         self.model_.to(device)
         self.device = device
         return self
